@@ -7,21 +7,16 @@ import whisper
 app = Flask(__name__)
 app.secret_key = "supersecretkey"  # Bảo mật CSRF
 app.config['UPLOAD_FOLDER'] = 'uploads'  # Thư mục lưu file tải lên
-app.config['ALLOWED_EXTENSIONS'] = {
-    'wav', 'mp3', 'flac', 'm4a', 'aac', 'ogg', 'wma'}
+app.config['ALLOWED_EXTENSIONS'] = {'wav', 'mp3', 'flac', 'm4a', 'aac', 'ogg', 'wma'}
 
 # Tạo thư mục lưu file nếu chưa tồn tại
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 # Kiểm tra định dạng file hợp lệ
-
-
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 # Hàm chuyển đổi âm thanh sang văn bản
-
-
 def transcribe_audio(file_path):
     try:
         model = whisper.load_model("base")  # Hoặc "small", "medium", "large"
@@ -31,8 +26,6 @@ def transcribe_audio(file_path):
         return f"Lỗi: {e}"
 
 # Route chính
-
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -65,8 +58,6 @@ def index():
 
     return render_template('index.html')
 
-
 # Chạy ứng dụng Flask
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host='0.0.0.0', port=5000, debug=False)
