@@ -1,5 +1,0 @@
-Flask
-Werkzeug
-openai-whisper
-whisper
-torch>=2.0.0
